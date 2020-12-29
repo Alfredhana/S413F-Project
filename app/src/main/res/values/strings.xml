@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SearchSystem</string>
+
+    <string name="about">In order to convenience computing students in finding their corresponding course,
+        including time,date,schedule in class,
+        we want to develop an application to help students more easily get their class information.</string>
+
+
+</resources>
