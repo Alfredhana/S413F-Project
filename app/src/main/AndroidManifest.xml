@@ -21,6 +21,6 @@
             android:name=".SearchSystem"
             android:label="@string/app_name" >
         </activity>
-
+//test
    </application>
 </manifest>
