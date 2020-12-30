@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "comps413f.searchsystem"
-        minSdkVersion 16
+        minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -29,4 +29,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
 }

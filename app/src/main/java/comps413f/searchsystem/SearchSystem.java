@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -27,8 +28,9 @@ public class SearchSystem extends AppCompatActivity implements CourseListFragmen
         setContentView(R.layout.activity_main);
 
         courseList = new CourseList();
-
         createCourseListFragment();
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+
     }
 
     // Create and show course list fragment
