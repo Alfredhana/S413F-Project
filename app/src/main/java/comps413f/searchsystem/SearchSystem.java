@@ -2,8 +2,11 @@ package comps413f.searchsystem;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,7 +20,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,10 +31,12 @@ public class SearchSystem extends AppCompatActivity implements CourseListFragmen
     FragmentTransaction fragmentTransaction;
     MaterialSearchView searchView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -175,6 +179,12 @@ public class SearchSystem extends AppCompatActivity implements CourseListFragmen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
+            case R.id.settings:
+                Intent intent = new Intent(SearchSystem.this, SearchSystemPreferenceActivity.class);
+                startActivity(intent);
+                break;
+
             case R.id.about:
                 new AlertDialog.Builder(this)
                         .setTitle("SearchSystem")

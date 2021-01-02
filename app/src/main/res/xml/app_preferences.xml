@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+
+    <PreferenceCategory
+        android:title="Screen settings">
+
+        <CheckBoxPreference
+            android:key="@string/pref_splash_key"
+            android:title="Splash screen"
+            android:summary="Show splash screen when launching this application(SearchSystem)"
+            android:defaultValue="@bool/pref_splash_default" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

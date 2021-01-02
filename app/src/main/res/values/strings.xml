@@ -5,5 +5,8 @@
         including time,date,schedule in class,
         we want to develop an application to help students more easily get their class information.</string>
 
+    <string name="pref_splash_key">splash</string>
+
+    <bool name="pref_splash_default">true</bool>
 
 </resources>
