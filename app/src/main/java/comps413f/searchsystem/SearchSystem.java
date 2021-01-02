@@ -2,7 +2,9 @@ package comps413f.searchsystem;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,6 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,21 +27,65 @@ public class SearchSystem extends AppCompatActivity implements CourseListFragmen
     CourseDetailsFragment courseDetailsFragment;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    MaterialSearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        courseList = new CourseList();
-        createCourseListFragment();
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Material Search");
+        toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
 
+        courseList = new CourseList();
+
+        createCourseListFragment(CourseList.getCourseList());
+
+        searchView = (MaterialSearchView)findViewById(R.id.search_view);
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                createCourseListFragment(CourseList.getCourseList());
+            }
+        });
+
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                final String TAG = SearchSystem.class.getSimpleName();
+                if (newText != null && !newText.isEmpty()){
+                    Log.i(TAG,  "I recognized the Query Text");
+                    List<Map<String, String>> lstfound = new ArrayList<>();
+                    for (Map<String, String> item : CourseList.getCourseList()){
+                        Log.i(TAG,"This is a loop");
+                        if (item.containsValue(newText)){
+                            Map<String, String> course = CourseList.getCourseMap(CourseList.getCourse(newText));
+                            System.out.print("Course : "+course.values());
+                            lstfound.add(course);
+                        }
+                    }
+                    createCourseListFragment(lstfound);
+                }
+                return true;
+            }
+        });
     }
 
     // Create and show course list fragment
-    public void createCourseListFragment() {
-        final List<Map<String, String>> courseMap = CourseList.getCourseList();
+    public void createCourseListFragment(List<Map<String, String>> list) {
+        final List<Map<String, String>> courseMap = list;
         // Adapter of data list to view
         SerializableSimpleAdapter adapter = new SerializableSimpleAdapter(this, courseMap, R.layout.list_view_item,
                 new String[] { CourseList.COURSE_CODE, CourseList.COURSE_TITLE },
@@ -79,7 +129,7 @@ public class SearchSystem extends AppCompatActivity implements CourseListFragmen
     // Invoke once the "Back" button of the course details fragment is clicked
     @Override
     public void courseDetailsToActivity() {
-        createCourseListFragment();
+        createCourseListFragment(CourseList.getCourseList());
     }
 
     // Show corresponding details of course
@@ -116,6 +166,8 @@ public class SearchSystem extends AppCompatActivity implements CourseListFragmen
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.app_menu, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
         return true;
     }
 

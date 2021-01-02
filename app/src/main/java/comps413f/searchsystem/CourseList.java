@@ -31,6 +31,13 @@ public class CourseList implements Serializable {
         return list;
     }
 
+    public static Map<String, String> getCourseMap(Course course){
+        Map<String, String> map = new HashMap<>();
+        map.put(COURSE_CODE, course.getCourseCode());
+        map.put(COURSE_TITLE, course.getCourseTile());
+        return map;
+    }
+
     // Create list of course
     private static void createCourseList() {
         courseList.clear();
