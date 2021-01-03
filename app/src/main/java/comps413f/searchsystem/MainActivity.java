@@ -58,8 +58,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveSharePreferences(){
-        String name = nameEt.getText().toString();
-        int age = Integer.parseInt(ageEt.getText().toString().trim());
+        String name;
+        if (nameEt.getText().toString().matches("")){
+            name = "User";
+        }else{
+            name = nameEt.getText().toString();
+        }
+
+        int age;
+        if (ageEt.getText().toString().matches("")){
+            age = 0;
+        }else{
+            age = Integer.parseInt(ageEt.getText().toString().trim());
+        }
+
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Log.i("multiplication","Name"+name);
         Log.i("multiplication","Age"+age);

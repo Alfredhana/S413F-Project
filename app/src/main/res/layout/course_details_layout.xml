@@ -55,7 +55,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Back"
+        android:text="Bacsk"
         android:id="@+id/back_button" />
 
 </LinearLayout>
