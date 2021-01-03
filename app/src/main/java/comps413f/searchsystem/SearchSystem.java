@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
+
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,13 +32,22 @@ public class SearchSystem extends AppCompatActivity implements CourseListFragmen
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     MaterialSearchView searchView;
-
+    TextView nameTv, ageTv;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        nameTv = findViewById(R.id.nameTv);
+        ageTv = findViewById(R.id.ageTv);
+
+        sharedPreferences = getSharedPreferences("SHARED_PREF", MODE_PRIVATE);
+        String name = sharedPreferences.getString("Name", "");
+        nameTv.setText("Name: "+name);
+        Integer age = sharedPreferences.getInt("Age", 0);
+        ageTv.setText("Age: "+Integer.toString(age));
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

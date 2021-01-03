@@ -5,31 +5,44 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 // Splash screen
 public class MainActivity extends AppCompatActivity {
+    EditText nameEt, ageEt;
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.splash);
+
+        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = getSharedPreferences("SHARED_PREF", MODE_PRIVATE);
         Resources res = getResources();
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean isShowing = prefs.getBoolean(res.getString(R.string.pref_splash_key), res.getBoolean(R.bool.pref_splash_default));
+        boolean isShowing = sharedPreferences.getBoolean(res.getString(R.string.pref_splash_key), res.getBoolean(R.bool.pref_splash_default));
         if (!isShowing) {
             showMainMenu();
             return;
         }
 
-        setContentView(R.layout.splash);
+
+        nameEt = findViewById(R.id.nameEt);
+        ageEt = findViewById(R.id.ageEt);
     }
 
     // Called when touched.
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN)
+        if (event.getAction() == MotionEvent.ACTION_DOWN){
+            saveSharePreferences();
             showMainMenu();
+        }
         return true;
     }
 
@@ -42,5 +55,18 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
         finish();
+    }
+
+    private void saveSharePreferences(){
+        String name = nameEt.getText().toString();
+        int age = Integer.parseInt(ageEt.getText().toString().trim());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Log.i("multiplication","Name"+name);
+        Log.i("multiplication","Age"+age);
+        editor.putString("Name", name);
+        editor.putInt("Age",age);
+        editor.apply();
+
+        Toast.makeText(MainActivity.this, "Information Saved!", Toast.LENGTH_SHORT).show();
     }
 }
