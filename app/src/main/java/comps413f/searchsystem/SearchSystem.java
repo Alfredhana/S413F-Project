@@ -114,12 +114,18 @@ public class SearchSystem extends AppCompatActivity implements CourseListFragmen
                 if (newText != null && !newText.isEmpty()){
                     Log.i(TAG,"newText： "+ newText);
                     for (Map<String, String> item : CourseList.getCourseList()){
-                        String key = item.get(item.keySet().toArray()[1]);
-                        Log.i(TAG,item.keySet().toArray()[1] + "=" + key);
-                        if (key.equals(newText)){
+                        String courseCode = item.get(item.keySet().toArray()[0]);
+                        String courseTitle = item.get(item.keySet().toArray()[1]);
+                        Log.i(TAG,item.keySet().toArray()[1] + "=" + courseTitle);
+                        if (courseTitle.equals(newText)){
                             Log.i(TAG,"Yes");
-                            Map<String, String> course = CourseList.getCourseMap(newText);
+                            Map<String, String> course = CourseList.getCourseMapByValue(newText);
                             System.out.print("Course : "+course.values());
+                            lstfound.add(course);
+                            break;
+                        }
+                        else if (courseCode.equals(newText)){
+                            Map<String, String> course = CourseList.getCourseMapByValueCode(newText);
                             lstfound.add(course);
                             break;
                         }

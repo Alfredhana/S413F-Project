@@ -38,10 +38,20 @@ public class CourseList implements Serializable {
         return map;
     }
 
-    public static Map<String, String> getCourseMap(String courseTitle){
+    public static Map<String, String> getCourseMapByValue(String courseTitle){
         Map<String, String> map = new HashMap<>();
         for (Course course : courseList) {
             if (course.getCourseTile().equals(courseTitle)){
+                map.put(COURSE_CODE, course.getCourseCode());
+                map.put(COURSE_TITLE, course.getCourseTile());
+            }
+        }
+        return map;
+    }
+    public static Map<String, String> getCourseMapByValueCode(String courseCode){
+        Map<String, String> map = new HashMap<>();
+        for (Course course : courseList) {
+            if (course.getCourseCode().equals(courseCode)){
                 map.put(COURSE_CODE, course.getCourseCode());
                 map.put(COURSE_TITLE, course.getCourseTile());
             }
