@@ -125,6 +125,7 @@ public class SearchSystem extends AppCompatActivity implements CourseListFragmen
                         }
                     }
                     createCourseListFragment(lstfound);
+                    lstfound = new ArrayList<>();
                 }
                 return true;
             }
