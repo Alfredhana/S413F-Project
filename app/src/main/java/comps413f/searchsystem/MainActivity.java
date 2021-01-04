@@ -31,8 +31,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         setContentView(R.layout.splash);
-        nameEt = findViewById(R.id.nameEt);
-        ageEt = findViewById(R.id.ageEt);
+
 
 
     }
@@ -60,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void saveSharePreferences(){
         String name;
+        sharedPreferences = getSharedPreferences("SHARED_PREF", MODE_PRIVATE);
+        nameEt = findViewById(R.id.nameEt);
+        ageEt = findViewById(R.id.ageEt);
         if (nameEt.getText().toString().matches("")){
             name = "User";
         }else{
