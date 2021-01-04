@@ -11,5 +11,13 @@
             android:summary="Show splash screen when launching this application(SearchSystem)"
             android:defaultValue="@bool/pref_splash_default" />
 
+        <ListPreference
+            android:key="@string/background_color_key"
+            android:title="Course List Color"
+            android:summary="change Background color in course list"
+            android:entries="@array/color_names"
+            android:entryValues="@array/color_names"
+            android:defaultValue="@string/background_color_default" />
+
     </PreferenceCategory>
 </PreferenceScreen>

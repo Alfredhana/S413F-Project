@@ -9,4 +9,18 @@
 
     <bool name="pref_splash_default">true</bool>
 
+
+    <string-array name="color_names">
+        <item>White</item>
+        <item>Red</item>
+        <item>Yellow</item>
+        <item>Green</item>
+        <item>Cyan</item>
+        <item>Blue</item>
+        <item>Magenta</item>
+    </string-array>
+
+    <string name="background_color_key">background_color</string>
+    <string name="background_color_default">White</string>
+
 </resources>

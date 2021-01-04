@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -266,5 +267,17 @@ public class SearchSystem extends AppCompatActivity implements CourseListFragmen
         return false;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        LinearLayout course_list_layout;
+        // update background color
+        String bgColor = prefs.getString(getString(R.string.background_color_key),
+                getString(R.string.background_color_default));
+        course_list_layout = findViewById(R.id.course_list_layout);
+        course_list_layout.setBackgroundColor(Color.parseColor(bgColor));
 
-}
+    }
+
+    }

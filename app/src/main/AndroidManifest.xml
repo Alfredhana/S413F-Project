@@ -29,6 +29,5 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
-//test
    </application>
 </manifest>
