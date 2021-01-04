@@ -20,20 +20,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash);
 
-        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        sharedPreferences = getSharedPreferences("SHARED_PREF", MODE_PRIVATE);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+       // sharedPreferences = getSharedPreferences("SHARED_PREF", MODE_PRIVATE);  //<- bug --cannot trun off splash screen
         Resources res = getResources();
         boolean isShowing = sharedPreferences.getBoolean(res.getString(R.string.pref_splash_key), res.getBoolean(R.bool.pref_splash_default));
         if (!isShowing) {
             showMainMenu();
             return;
         }
-
-
+        setContentView(R.layout.splash);
         nameEt = findViewById(R.id.nameEt);
         ageEt = findViewById(R.id.ageEt);
+
+
     }
 
     // Called when touched.
