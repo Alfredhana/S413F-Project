@@ -43,6 +43,7 @@ public class SearchSystem extends AppCompatActivity implements CourseListFragmen
 
     Button refresh;
     ProgressBar progressBar;
+    List<Map<String, String>> lstfound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,17 +78,26 @@ public class SearchSystem extends AppCompatActivity implements CourseListFragmen
 
         courseList = new CourseList();
 
+        lstfound = new ArrayList<>();
+
         createCourseListFragment(CourseList.getCourseList());
 
         searchView = (MaterialSearchView)findViewById(R.id.search_view);
         searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
             @Override
             public void onSearchViewShown() {
-
+                refresh.setVisibility(View.INVISIBLE);
+                refresh.setHeight(0);
+                progressBar.setVisibility(View.INVISIBLE);
+                progressBar.setY(0);
             }
 
             @Override
             public void onSearchViewClosed() {
+                refresh.setVisibility(View.VISIBLE);
+                refresh.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
+                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setY(LinearLayout.LayoutParams.WRAP_CONTENT);
                 createCourseListFragment(CourseList.getCourseList());
             }
         });
@@ -102,14 +112,16 @@ public class SearchSystem extends AppCompatActivity implements CourseListFragmen
             public boolean onQueryTextChange(String newText) {
                 final String TAG = SearchSystem.class.getSimpleName();
                 if (newText != null && !newText.isEmpty()){
-                    Log.i(TAG,  "I recognized the Query Text");
-                    List<Map<String, String>> lstfound = new ArrayList<>();
+                    Log.i(TAG,"newText： "+ newText);
                     for (Map<String, String> item : CourseList.getCourseList()){
-                        Log.i(TAG,"This is a loop");
-                        if (item.containsValue(newText)){
-                            Map<String, String> course = CourseList.getCourseMap(CourseList.getCourse(newText));
+                        String key = item.get(item.keySet().toArray()[1]);
+                        Log.i(TAG,item.keySet().toArray()[1] + "=" + key);
+                        if (key.equals(newText)){
+                            Log.i(TAG,"Yes");
+                            Map<String, String> course = CourseList.getCourseMap(newText);
                             System.out.print("Course : "+course.values());
                             lstfound.add(course);
+                            break;
                         }
                     }
                     createCourseListFragment(lstfound);
